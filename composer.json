@@ -5,7 +5,8 @@
   "keywords": [
     "rss",
     "yandex",
-    "generator"
+    "generator",
+    "zen"
   ],
   "homepage": "https://github.com/sgvsv/php-yandex-zen-rss-feed",
   "support": {

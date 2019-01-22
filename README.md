@@ -1,6 +1,12 @@
 # YandexZenFeed
 Simple PHP class for making RSS feed in Yandex zen format
+## Installation
+Best way to use this library is install it via composer:
+````bash
+composer require sgvsv/php-yandex-zen-rss-feed
+````
 ## Usage example
+After installing you can create feed:
 ````php
 require_once __DIR__.'/vendor/autoload.php';
 

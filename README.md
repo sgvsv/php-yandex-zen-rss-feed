@@ -2,11 +2,10 @@
 Simple PHP class for making RSS feed in Yandex zen format
 ## Usage example
 ````php
-require "YandexZenFeed\YandexZenFeed.php";
-require "YandexZenFeed\YandexZenFeedItem.php";
+require_once __DIR__.'/vendor/autoload.php';
 
 //New feed with global parameters in constructor
-$feed = new YandexZenFeed\YandexZenFeed('My feeds title', 'Description text here', 'https://mysite.com', 'https:/mysite.com/rss.xml');
+$feed = new \sgvsv\Yandex\Zen\Feed('My feeds title', 'Description text here', 'https://mysite.com', 'https:/mysite.com/rss.xml');
 
 //News 1 item
 $item = $feed->newItem();

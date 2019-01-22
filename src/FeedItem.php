@@ -2,7 +2,18 @@
 
 namespace sgvsv\Yandex\Zen;
 
-
+/**
+ * Item's properties
+ *
+ * @property string $title
+ * @property string $link
+ * @property string $pubDate
+ * @property string $author
+ * @property string $category
+ * @property string $description
+ * @property string $content
+ * @property string $rating
+ */
 class FeedItem
 {
     /** Configuration: list of elements in each feed's element

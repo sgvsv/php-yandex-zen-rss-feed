@@ -7,7 +7,7 @@ class Feed
     /** Array of FeedItem objects
      * @var array
      */
-    private $items = array();
+    private $items = [];
 
     /**
      * @property string $language Language of feed (default will be en)
@@ -33,7 +33,7 @@ class Feed
      * @param string $rssLink
      * @param string $language
      */
-    public function __construct($title, $description, $link, $rssLink, $language = "en")
+    public function __construct(string $title, string $description, string $link, string $rssLink, string $language = "en")
     {
         $this->title = $title;
         $this->description = $description;
@@ -50,10 +50,10 @@ class Feed
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return string
      */
-    private function generateElement($name)
+    private function generateElement(string $name)
     {
         return isset($this->$name) ? ("<$name>" . htmlspecialchars(trim($this->$name)) . "</$name>\n") : '';
     }

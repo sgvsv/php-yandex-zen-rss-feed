@@ -1,4 +1,5 @@
 <?php
+
 namespace sgvsv\Yandex\Zen;
 
 
@@ -7,38 +8,38 @@ class FeedItem
     /** Configuration: list of elements in each feed's element
      * @var array
      */
-    private $elements = array(
-        'title' => array('cdata' => false,
+    private $elements = [
+        'title' => ['cdata' => false,
             'defaultValue' => ''
-        ),
-        'link' => array('cdata' => false,
+        ],
+        'link' => ['cdata' => false,
             'defaultValue' => ''
-        ),
-        'pubDate' => array('cdata' => false,
+        ],
+        'pubDate' => ['cdata' => false,
             'defaultValue' => ''
-        ),
-        'author' => array('cdata' => false,
+        ],
+        'author' => ['cdata' => false,
             'defaultValue' => ''
-        ),
-        'category' => array('cdata' => false,
+        ],
+        'category' => ['cdata' => false,
             'defaultValue' => ''
-        ),
-        'description' => array('cdata' => true,
+        ],
+        'description' => ['cdata' => true,
             'defaultValue' => ''
-        ),
-        'content' => array('openTag' => 'content:encoded',
+        ],
+        'content' => ['openTag' => 'content:encoded',
             'closeTag' => 'content:encoded',
             'cdata' => true,
             'defaultValue' => ''
-        ),
-        'rating' => array('openTag' => 'media:rating scheme="urn:simple"',
+        ],
+        'rating' => ['openTag' => 'media:rating scheme="urn:simple"',
             'closeTag' => 'media:rating',
             'cdata' => false,
             'defaultValue' => 'nonadult'
-        ),
+        ],
 
-    );
-    private $images = Array();
+    ];
+    private $images = [];
 
     /** Setter for elements value
      * @param $name - name of element to set
@@ -51,10 +52,10 @@ class FeedItem
     }
 
     /** Getter for elements value
-     * @param $name - name of element
+     * @param string $name - name of element
      * @return string|null - value or null if there is no such element
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         $result = null;
         if (array_key_exists($name, $this->elements))
@@ -65,10 +66,10 @@ class FeedItem
     }
 
     /** Private method that generates XML part of each element depending of it's configuration
-     * @param $name - name of element
+     * @param string $name - name of element
      * @return null|string - XML string or null
      */
-    private function generateElement($name)
+    private function generateElement(string $name)
     {
         $result = $this->__get($name);
         $element = $this->elements[$name];
@@ -94,7 +95,7 @@ class FeedItem
         return $result;
     }
 
-    private function getImagesXML($enclosure = false)
+    private function getImagesXML(bool $enclosure = false)
     {
 
         $result = "";
@@ -113,18 +114,18 @@ class FeedItem
 
     /**
      * Adds image to feed element
-     * @param $location url of image
-     * @param $description text description of image
-     * @param $length size of image in bytes
+     * @param string $location url of image
+     * @param string $description text description of image
+     * @param int $length size of image in bytes
      */
-    public function addImage($location, $description, $length)
+    public function addImage(string $location, string $description, int $length)
     {
-        $this->images[] = Array('location' => $location, 'description' => $description, 'length' => $length);
+        $this->images[] = ['location' => $location, 'description' => $description, 'length' => $length];
     }
 
-    private function imageMime($filename)
+    private function imageMime(string $filename)
     {
-        $mime_types = array(
+        $mime_types = [
             'png' => 'image/png',
             'jpe' => 'image/jpeg',
             'jpeg' => 'image/jpeg',
@@ -136,9 +137,9 @@ class FeedItem
             'tif' => 'image/tiff',
             'svg' => 'image/svg+xml',
             'svgz' => 'image/svg+xml',
-        );
-
-        $ext = strtolower(array_pop(explode('.', $filename)));
+        ];
+        $aTmp = explode('.', $filename);
+        $ext = strtolower(array_pop($aTmp));
         if (array_key_exists($ext, $mime_types)) {
             return $mime_types[$ext];
         } elseif (function_exists('finfo_open')) {

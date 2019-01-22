@@ -1,0 +1,19 @@
+{
+    "name": "sgvsv/php-yandex-zen-rss-feed",
+    "description": "Generates RSS feed in Yandex Zen supported format",
+    "type": "package",
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vasily Svitkin",
+            "email": "svitkin@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

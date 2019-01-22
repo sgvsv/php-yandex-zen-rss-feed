@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-final class Feed extends PHPUnit\Framework\TestCase
+final class FeedTest extends PHPUnit\Framework\TestCase
 {
     public function testConstructor()
     {
-        $this->assertIsObject(new \sgvsv\Yandex\Zen\Feed('Feed', 'Feed', 'Feed', 'Feed'));
-        $this->assertIsObject(new \sgvsv\Yandex\Zen\Feed('Feed', 'Feed', 'Feed', 'Feed', 'en'));
+        $this->assertIsObject(new \sgvsv\Yandex\Zen\Feed('FeedTest', 'FeedTest', 'FeedTest', 'FeedTest'));
+        $this->assertIsObject(new \sgvsv\Yandex\Zen\Feed('FeedTest', 'FeedTest', 'FeedTest', 'FeedTest', 'en'));
         $this->assertIsObject(new \sgvsv\Yandex\Zen\Feed('На', 'русском', 'языке', 'проверка', 'ru'));
     }
 

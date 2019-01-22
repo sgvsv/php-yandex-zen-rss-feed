@@ -48,6 +48,14 @@ class Feed
         $this->items[] = $item;
         return $item;
     }
+    /*
+     * Returns all feed items
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
 
     /**
      * @param string $name

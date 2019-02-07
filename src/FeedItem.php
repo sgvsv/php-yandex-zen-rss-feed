@@ -41,7 +41,19 @@ class FeedItem
         'content' => ['openTag' => 'content:encoded',
             'closeTag' => 'content:encoded',
             'cdata' => true,
-            'defaultValue' => ''
+            'defaultValue' => '',
+            'filterTags' => [
+                '<p>',
+                '<figure>',
+                '<img>',
+                '<figcaption>',
+                '<video>',
+                '<source>',
+                '<media:content>',
+                '<media:description>',
+                '<media:copyright>',
+                '<span>',
+            ],
         ],
         'rating' => ['openTag' => 'media:rating scheme="urn:simple"',
             'closeTag' => 'media:rating',
@@ -84,6 +96,8 @@ class FeedItem
     {
         $result = $this->__get($name);
         $element = $this->elements[$name];
+        if (isset($element['filterTags'])&&is_array($element['filterTags']))
+            $result = strip_tags($result, implode('', $element['filterTags']));
         if ($element['cdata'])
             $result = "<![CDATA[$result]]>";
         $result = (isset($element['openTag']) ? "<${element['openTag']}>" : "<$name>") . $result .

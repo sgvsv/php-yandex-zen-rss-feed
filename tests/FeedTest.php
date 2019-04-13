@@ -122,19 +122,20 @@ final class FeedTest extends PHPUnit\Framework\TestCase
         $this->assertContains('https://mysitename.org/rss.xml', $xml);
     }
 
-    public function testStripTags(){
+    public function testStripTags()
+    {
         $feed = $this->createDemoFeed();
         $item = $feed->newItem();
-        $item->content='<media:content>NORMAL1</media:content><blockquote>TEST1</blockquote>NORMAL2<iframe src="TEST2" height="480" width="640"/></iframe>NORMAL3<script async src="TEST3" charset="utf-8">TEST4</script>NORMAL4';
-        $xml=$feed->getXML();
-        $this->assertContains('NORMAL1',$xml);
-        $this->assertContains('NORMAL2',$xml);
-        $this->assertContains('NORMAL3',$xml);
-        $this->assertContains('NORMAL4',$xml);
+        $item->content = '<media:content>NORMAL1</media:content><blockquote>TEST1</blockquote>NORMAL2<iframe src="TEST2" height="480" width="640"/></iframe>NORMAL3<script async src="TEST3" charset="utf-8">TEST4</script>NORMAL4';
+        $xml = $feed->getXML();
+        $this->assertContains('NORMAL1', $xml);
+        $this->assertContains('NORMAL2', $xml);
+        $this->assertContains('NORMAL3', $xml);
+        $this->assertContains('NORMAL4', $xml);
 
-        $this->assertNotContains('<blockquote',$xml);
-        $this->assertNotContains('<iframe',$xml);
-        $this->assertNotContains('<script',$xml);
-        $this->assertContains('<media:content>NORMAL1</media:content>',$xml);
+        $this->assertNotContains('<blockquote', $xml);
+        $this->assertNotContains('<iframe', $xml);
+        $this->assertNotContains('<script', $xml);
+        $this->assertContains('<media:content>NORMAL1</media:content>', $xml);
     }
 }

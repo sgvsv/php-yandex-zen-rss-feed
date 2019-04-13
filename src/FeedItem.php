@@ -16,29 +16,36 @@ namespace sgvsv\Yandex\Zen;
  */
 class FeedItem
 {
-    /** Configuration: list of elements in each feed's element
-     * @var array
+    /**
+     * @property array $elements Configuration: list of elements in each feed's element
      */
     private $elements = [
-        'title' => ['cdata' => false,
+        'title' => [
+            'cdata' => false,
             'defaultValue' => ''
         ],
-        'link' => ['cdata' => false,
+        'link' => [
+            'cdata' => false,
             'defaultValue' => ''
         ],
-        'pubDate' => ['cdata' => false,
+        'pubDate' => [
+            'cdata' => false,
             'defaultValue' => ''
         ],
-        'author' => ['cdata' => false,
+        'author' => [
+            'cdata' => false,
             'defaultValue' => ''
         ],
-        'category' => ['cdata' => false,
+        'category' => [
+            'cdata' => false,
             'defaultValue' => ''
         ],
-        'description' => ['cdata' => true,
+        'description' => [
+            'cdata' => true,
             'defaultValue' => ''
         ],
-        'content' => ['openTag' => 'content:encoded',
+        'content' => [
+            'openTag' => 'content:encoded',
             'closeTag' => 'content:encoded',
             'cdata' => true,
             'defaultValue' => '',
@@ -55,7 +62,8 @@ class FeedItem
                 '<span>',
             ],
         ],
-        'rating' => ['openTag' => 'media:rating scheme="urn:simple"',
+        'rating' => [
+            'openTag' => 'media:rating scheme="urn:simple"',
             'closeTag' => 'media:rating',
             'cdata' => false,
             'defaultValue' => 'nonadult'
@@ -70,8 +78,9 @@ class FeedItem
      */
     public function __set($name, $value)
     {
-        if (array_key_exists($name, $this->elements))
+        if (array_key_exists($name, $this->elements)) {
             $this->elements[$name]['value'] = $value;
+        }
     }
 
     /** Getter for elements value
@@ -81,25 +90,28 @@ class FeedItem
     public function __get(string $name)
     {
         $result = null;
-        if (array_key_exists($name, $this->elements))
+        if (array_key_exists($name, $this->elements)) {
             $result = isset($this->elements[$name]['value']) ?
                 $this->elements[$name]['value'] :
                 $this->elements[$name]['defaultValue'];
+        }
         return $result;
     }
 
     /** Private method that generates XML part of each element depending of it's configuration
      * @param string $name - name of element
-     * @return null|string - XML string or null
+     * @return string - XML string or null
      */
-    private function generateElement(string $name)
+    private function generateElement(string $name): string
     {
         $result = $this->__get($name);
         $element = $this->elements[$name];
-        if (isset($element['filterTags'])&&is_array($element['filterTags']))
+        if (isset($element['filterTags']) && is_array($element['filterTags'])) {
             $result = strip_tags($result, implode('', $element['filterTags']));
-        if ($element['cdata'])
+        }
+        if ($element['cdata']) {
             $result = "<![CDATA[$result]]>";
+        }
         $result = (isset($element['openTag']) ? "<${element['openTag']}>" : "<$name>") . $result .
             (isset($element['closeTag']) ? "</${element['closeTag']}>" : "</$name>");
         return $result;
@@ -108,31 +120,39 @@ class FeedItem
     /** Generates complete XML string of this feed item
      * @return string
      */
-    public function getXML()
+    public function getXML(): string
     {
         $this->elements['guid'] = $this->elements['link'];
         $result = "";
-        foreach (array_keys($this->elements) as $element)
+        foreach (array_keys($this->elements) as $element) {
             $result .= $this->generateElement($element) . "\n";
+        }
         $result .= $this->getImagesXML(true);
         $result .= $this->getImagesXML();
         $result = "<item>\n$result</item>";
         return $result;
     }
 
+    /**
+     * Returns XML for item's images
+     * @param bool $enclosure
+     * @return string
+     */
     private function getImagesXML(bool $enclosure = false)
     {
 
         $result = "";
-        foreach ($this->images as $image)
-            if ($enclosure)
+        foreach ($this->images as $image) {
+            if ($enclosure) {
                 $result .= "<enclosure url=\"{$image['location']}\" type=\"" . $this->imageMime($image['location']) . "\" length=\"" . $image['length'] . "\"/>\n";
-            else
+            } else {
                 $result .= "
             <media:content type=\"" . $this->imageMime($image['location']) . "\" medium=\"image\"
                 url=\"{$image['location']}\">
             <media:description type=\"plain\">{$image['description']}</media:description>
         </media:content>";
+            }
+        }
 
         return $result;
     }
@@ -148,7 +168,12 @@ class FeedItem
         $this->images[] = ['location' => $location, 'description' => $description, 'length' => $length];
     }
 
-    private function imageMime(string $filename)
+    /**
+     * Determines mime type for given file
+     * @param string $filename
+     * @return string
+     */
+    private function imageMime(string $filename): string
     {
         $mime_types = [
             'png' => 'image/png',

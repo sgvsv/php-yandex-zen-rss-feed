@@ -1,5 +1,12 @@
 # YandexZenFeed
 Simple PHP class for making RSS feed in Yandex zen format
+## Requirements
+ For providing modern PHP features such as setting types in method's signatures **PHP7.1 or higher** is required. Also you need to have some extensions:
+* ext-fileinfo
+* ext-libxml
+* ext-simplexml
+
+If you want to run tests you will need **phpunit** higher than 7.5
 ## Installation
 Best way to use this library is install it via composer:
 ````bash

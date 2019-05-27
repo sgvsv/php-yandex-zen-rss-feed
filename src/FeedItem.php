@@ -28,6 +28,14 @@ class FeedItem
             'cdata' => false,
             'defaultValue' => ''
         ],
+        'pdalink' => [
+            'cdata' => false,
+            'defaultValue' => ''
+        ],
+        'amplink' => [
+            'cdata' => false,
+            'defaultValue' => ''
+        ],
         'pubDate' => [
             'cdata' => false,
             'defaultValue' => ''

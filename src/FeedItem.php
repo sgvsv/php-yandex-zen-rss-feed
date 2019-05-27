@@ -7,6 +7,8 @@ namespace sgvsv\Yandex\Zen;
  *
  * @property string $title
  * @property string $link
+ * @property string $pdalink
+ * @property string $amplink
  * @property string $pubDate
  * @property string $author
  * @property string $category

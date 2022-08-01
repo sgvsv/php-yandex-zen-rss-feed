@@ -2,28 +2,28 @@
 
 namespace sgvsv\Yandex\Zen;
 
+/**
+ * @property string $language Language of feed (default will be en)
+ * @property string $description Description of feed (no tags)
+ * @property string $link Link to feed's site
+ * @property string $title Title of feed
+ * @property string $rssLink URL of feed
+ * @property string $encoding Encoding of feed (could be changed)
+ */
 class Feed
 {
-    /** Array of FeedItem objects
+    /**
+     * Array of FeedItem objects
      * @var array
      */
     private $items = [];
 
-    /**
-     * @property string $language Language of feed (default will be en)
-     * @property string $description Description of feed (no tags)
-     * @property string $link Link to feed's site
-     * @property string $title Title of feed
-     * @property string $encoding Encoding of feed (could be changed)
-     */
-
     public $encoding = "UTF-8";
     public $title;
-    public $link;
     public $description;
-    public $language;
+    public $link;
     public $rssLink;
-
+    public $language;
 
     /**
      * Feed constructor.
@@ -47,6 +47,9 @@ class Feed
         $this->language = $language;
     }
 
+    /**
+     * @return FeedItem
+     */
     public function & newItem(): FeedItem
     {
         $item = new FeedItem();
@@ -55,7 +58,7 @@ class Feed
         return $item;
     }
 
-    /*
+    /**
      * Returns all feed items
      * @return array
      */
@@ -82,6 +85,7 @@ class Feed
         $channelElements = $this->generateElement('title') . $this->generateElement('description') . $this->generateElement('link') . $this->generateElement('language');
         $feedElements = "";
         foreach ($this->items as $item) {
+            /** @var FeedItem $item */
             $feedElements .= $item->getXML() . "\n";
         }
         $result .= "<channel>\n$channelElements\n<atom:link href=\"{$this->rssLink}\" rel=\"self\" type=\"application/rss+xml\" />\n$feedElements\n</channel></rss>";

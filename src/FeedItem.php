@@ -11,7 +11,7 @@ namespace sgvsv\Yandex\Zen;
  * @property string $amplink
  * @property string $pubDate
  * @property string $author
- * @property string $category
+ * @property string|string[] $category
  * @property string $description
  * @property string $content
  * @property string $rating
@@ -105,6 +105,7 @@ class FeedItem
                 $this->elements[$name]['value'] :
                 $this->elements[$name]['defaultValue'];
         }
+
         return $result;
     }
 
@@ -122,9 +123,19 @@ class FeedItem
         if ($element['cdata']) {
             $result = "<![CDATA[$result]]>";
         }
-        $result = (isset($element['openTag']) ? "<${element['openTag']}>" : "<$name>") . $result .
-            (isset($element['closeTag']) ? "</${element['closeTag']}>" : "</$name>");
-        return $result;
+        if ($name == 'category' && is_array($result)) {
+            $categories = '';
+            foreach ($result as $category) {
+                $categories .= "<$name>" . $category . "</$name>" . "\n";
+            }
+
+            return $categories;
+        } else {
+            $result = (isset($element['openTag']) ? "<${element['openTag']}>" : "<$name>") . $result .
+                (isset($element['closeTag']) ? "</${element['closeTag']}>" : "</$name>");
+
+            return $result;
+        }
     }
 
     /** Generates complete XML string of this feed item
@@ -140,6 +151,7 @@ class FeedItem
         $result .= $this->getImagesXML(true);
         $result .= $this->getImagesXML();
         $result = "<item>\n$result</item>";
+
         return $result;
     }
 
@@ -206,6 +218,7 @@ class FeedItem
             $finfo = finfo_open(FILEINFO_MIME);
             $mimetype = finfo_file($finfo, $filename);
             finfo_close($finfo);
+
             return $mimetype;
         } else {
             return 'application/octet-stream';

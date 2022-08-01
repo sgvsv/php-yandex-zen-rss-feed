@@ -51,6 +51,7 @@ class Feed
     {
         $item = new FeedItem();
         $this->items[] = $item;
+
         return $item;
     }
 
@@ -84,6 +85,7 @@ class Feed
             $feedElements .= $item->getXML() . "\n";
         }
         $result .= "<channel>\n$channelElements\n<atom:link href=\"{$this->rssLink}\" rel=\"self\" type=\"application/rss+xml\" />\n$feedElements\n</channel></rss>";
+
         return $result;
     }
 
